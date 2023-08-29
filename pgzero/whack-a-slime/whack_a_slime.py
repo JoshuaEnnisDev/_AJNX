@@ -1,4 +1,5 @@
 from pgzrun import go
+from random import randint
 
 # screen size
 WIDTH = 800
@@ -32,21 +33,17 @@ def on_mouse_move(pos):
 
 # runs 60 times per second
 def update():
-    # rand_num = randint(1, 2)
-    # if rand_num == 1:
-    #     slime.x = hole1.x
-    #     slime.y = hole1.y - 25
-    # elif rand_num == 2:
-    #     slime.x = hole2.x
-    #     slime.y = hole2.y - 25
+    rand_num = randint(1, 2)
+    if rand_num == 1:
+        slime.x = hole1.x
+        slime.y = hole1.y - 25
+    elif rand_num == 2:
+        slime.x = hole2.x
+        slime.y = hole2.y - 25
     screen.draw.text("hello", (10, 10))
     if keyboard.d:
 
         slime.x += slime.speed
-
-
-def test():
-    pass
 
 
 # Must be the last line
