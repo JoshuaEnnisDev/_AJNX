@@ -16,6 +16,7 @@ hole2 = Actor('hole', pos=(600, 300))
 # global variable
 score = 0
 
+
 def draw():
     screen.fill("green")
     slime.draw()
@@ -38,6 +39,7 @@ def update():
 
 
 def on_mouse_down(pos):
+    global score
     if slime.collidepoint(pos):
         score += 1
         print(score)
