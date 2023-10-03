@@ -5,38 +5,37 @@ WIDTH = 800
 HEIGHT = 500
 TITLE = "AJNX"
 
-# the Rect class creates a rectangle (x, y, width, height)
-test_rect = Rect(200, 20, 20, 300)
-
-# The Actor class draws a rectangle around an image 
-alien = Actor("alien")
-alien.x = 300
-alien.y = 500
-# space between each actor
-zom = Actor("zombie", (WIDTH - 100, 200))
-
-player = Actor("dino")
+player = Actor("knight_idle")
 player.bottom = HEIGHT
-player.direction = 1
+
+bat = Actor("bat")
+bat.x = WIDTH - 50
+bat.bottom = HEIGHT
+bat.speed = 3
+bat.animation_timer = 20
 
 
 # built in function that draws stuff on the screen
 def draw():
     screen.clear()
-    alien.draw()
-    zom.draw()
     player.draw()
+    bat.draw()
 
 
 # runs 60 times every second
 def update():
-    # my actors new x value is now 2 more than its old x value
-    player.x = player.x + 2 * player.direction
-    player.y -= 2 * player.direction
+    # moves the enemy to the left each frame
+    bat.x -= bat.speed
+    # checks if enemy is at the left edge of the screen
+    if bat.right <= 0:
+        bat.left = WIDTH
 
-    if player.x >= WIDTH or player.y <= 0:
-        player.direction = -1
-
+    # subtract from the timer
+    bat.animation_timer -= 1
+    if bat.animation_timer <= 0:
+        # reset it back
+        bat.animation_timer = 20
+        # check current image
 
 # runs the game
 pgzrun.go()
