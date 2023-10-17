@@ -4,6 +4,8 @@ import pgzrun
 WIDTH = 800
 HEIGHT = 500
 TITLE = "AJNX"
+# set a variable equal to a rbg value for colors
+MIDNIGHT_BLUE = (8, 36, 78)
 
 player = Actor("knight_idle")
 player.bottom = HEIGHT
@@ -19,9 +21,14 @@ bat.animation_timer = 20
 
 # built in function that draws stuff on the screen
 def draw():
-    screen.fill((161, 79, 109))
-    player.draw()
-    bat.draw()
+    # fills the screen with a color of your choosing
+    if player.colliderect(bat):
+        player.draw()
+        screen.fill("black")
+    else:
+        screen.fill(MIDNIGHT_BLUE)
+        player.draw()
+        bat.draw()
 
 
 # called when any key on your keyboard is pressed
@@ -46,7 +53,7 @@ def update():
     player.y += player.gravity
 
     # check if the player is on the floor
-    if player.bottom > HEIGHT:
+    if player.bottom >= HEIGHT:
         # the bottom of the player set equal to the bottom of the screen
         player.bottom = HEIGHT
 
@@ -54,9 +61,6 @@ def update():
     if player.top <= 0:
         player.gravity += 20
         bat.speed *= 2
-    
-    
-
 
     # subtract from the timer
     bat.animation_timer -= 1
@@ -64,8 +68,12 @@ def update():
         # reset it back
         bat.animation_timer = 20
         # check current image
-    
-
+        if bat.image == "bat":
+            # switch it to the other image
+            bat.image = "bat_fly"
+        else:
+            # switch it back
+            bat.image = "bat"
 
 # runs the game
 pgzrun.go()
