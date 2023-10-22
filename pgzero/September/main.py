@@ -3,7 +3,7 @@ import pgzrun
 
 WIDTH = 800
 HEIGHT = 500
-TITLE = "AJNX"
+TITLE = "Neal and Xi Xi"
 # set a variable equal to a rbg value for colors
 MIDNIGHT_BLUE = (8, 36, 78)
 
@@ -22,13 +22,9 @@ bat.animation_timer = 20
 # built in function that draws stuff on the screen
 def draw():
     # fills the screen with a color of your choosing
-    if player.colliderect(bat):
-        player.draw()
-        screen.fill("black")
-    else:
-        screen.fill(MIDNIGHT_BLUE)
-        player.draw()
-        bat.draw()
+    screen.fill(MIDNIGHT_BLUE)
+    player.draw()
+    bat.draw()
 
 
 # called when any key on your keyboard is pressed
@@ -74,6 +70,7 @@ def update():
         else:
             # switch it back
             bat.image = "bat"
+
 
 # runs the game
 pgzrun.go()
