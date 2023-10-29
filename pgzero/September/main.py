@@ -24,15 +24,32 @@ bat.base_speed = bat.speed
 bat.animation_timer = 20
 bat.damage = 5
 
+# rectangles (x pos, y pos, width, height)
+hacky_neal_rect = Rect(20, 20, 200, 100)
+retry_button = Rect(300, 300, 200, 50)
+
 
 # built in function that draws stuff on the screen
 def draw():
-    # fills the screen with a color of your choosing
-    screen.fill(MIDNIGHT_BLUE)
-    screen.draw.text(f"Health: {player.health}", (20, 20), fontsize=35)
-    player.draw()
-    bat.draw()
+    # check if player's heatlh is greater than 0
+    if player.health > 0:
+        # fills the screen with a color of your choosing
+        screen.fill(MIDNIGHT_BLUE)
+        screen.draw.text(f"Health: {player.health}", (20, 20), fontsize=35)
+        player.draw()
+        bat.draw()
+    else:
+        screen.draw.filled_rect(hacky_neal_rect, color=MIDNIGHT_BLUE)
+        screen.draw.text(f"Health: {player.health}", (20, 20), fontsize=35)
+        screen.draw.text("Game over", (300, 200), fontsize=50, color="red")
+        # make the button rectangle
+        screen.draw.filled_rect(retry_button, color="navy")
+        screen.draw.text("Retry", (350, 310), fontsize=50)
 
+
+def on_mouse_down(pos):
+    if retry_button.collidepoint(pos):
+        player.health = 20
 
 # called when any key on your keyboard is pressed
 def on_key_down():
