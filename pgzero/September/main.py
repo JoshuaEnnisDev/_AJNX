@@ -26,7 +26,7 @@ bat.damage = 5
 
 # rectangles (x pos, y pos, width, height)
 hacky_neal_rect = Rect(20, 20, 200, 100)
-retry_button = Rect(300, 300, 200, 50)
+retry_button = Rect(-100, -100, 200, 50)
 
 
 # built in function that draws stuff on the screen
@@ -50,6 +50,8 @@ def draw():
 def on_mouse_down(pos):
     if retry_button.collidepoint(pos):
         player.health = 20
+        bat.x = 900
+        player.bottom = HEIGHT
 
 # called when any key on your keyboard is pressed
 def on_key_down():
