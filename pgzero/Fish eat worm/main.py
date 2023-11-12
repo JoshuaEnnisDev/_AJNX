@@ -108,7 +108,7 @@ def update():
     if player.colliderect(bat):
         if player.right - bat.left <= 5:
             player.health -= bat.damage
-        elif bat.top - player.bottom <= 1:
+        elif bat.top - player.bottom <= 5:
             print("you ate the worm")
 
         bat.left = WIDTH
