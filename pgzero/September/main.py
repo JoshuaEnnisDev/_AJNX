@@ -1,5 +1,6 @@
 # gives you access to extra functions that do not come with Python
 import pgzrun
+import time
 
 WIDTH = 800
 HEIGHT = 500
@@ -15,6 +16,8 @@ player.health = 20
 player.score = 0
 player.game_over = False
 player.hit_top = False
+player.start_time = time.time()
+player.score = 0
 
 bat = Actor("bat")
 bat.x = WIDTH - 50
@@ -26,16 +29,19 @@ bat.damage = 5
 
 # rectangles (x pos, y pos, width, height)
 hacky_neal_rect = Rect(20, 20, 200, 100)
-retry_button = Rect(300, 300, 200, 50)
+retry_button = None
 
 
 # built in function that draws stuff on the screen
 def draw():
-    # check if player's heatlh is greater than 0
+    global retry_button
+    # check if player's health is greater than 0
     if player.health > 0:
         # fills the screen with a color of your choosing
         screen.fill(MIDNIGHT_BLUE)
         screen.draw.text(f"Health: {player.health}", (20, 20), fontsize=35)
+        screen.draw.text(f"Score: {player.score}", (600, 20), fontsize=35)
+        retry_button = None
         player.draw()
         bat.draw()
     else:
@@ -43,15 +49,17 @@ def draw():
         screen.draw.text(f"Health: {player.health}", (20, 20), fontsize=35)
         screen.draw.text("Game over", (300, 200), fontsize=50, color="red")
         # make the button rectangle
+        retry_button = Rect(300, 300, 200, 50)
         screen.draw.filled_rect(retry_button, color="navy")
         screen.draw.text("Retry", (350, 310), fontsize=50)
 
 
 def on_mouse_down(pos):
-    if retry_button.collidepoint(pos):
+    if retry_button is not None and retry_button.collidepoint(pos):
         player.health = 20
         bat.x = 900
         player.bottom = HEIGHT
+        player.start_time = time.time()
 
 
 # called when any key on your keyboard is pressed
@@ -63,6 +71,7 @@ def on_key_down():
 
 # runs 60 times every second
 def update():
+    player.score = int(time.time() - player.start_time)
     # moves the enemy to the left each frame
     bat.x -= bat.speed
     # checks if enemy is at the left edge of the screen
