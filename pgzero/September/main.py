@@ -1,6 +1,7 @@
 # gives you access to extra functions that do not come with Python
 import pgzrun
 import time
+from random import randint # only
 from pgzhelper import Actor
 
 WIDTH = 800
@@ -21,8 +22,8 @@ player.start_time = time.time()
 player.score = 0
 
 bat = Actor("bat")
-bat.x = WIDTH - 50
-bat.bottom = HEIGHT
+bat.x = WIDTH + 50  # somewhere towards the right edge
+bat.y = randint(50, HEIGHT - 250)
 bat.speed = 3
 bat.base_speed = bat.speed
 bat.animation_timer = 20
@@ -72,14 +73,21 @@ def on_key_down():
 
 # runs 60 times every second
 def update():
+    # counts times and increases score
     player.score = int(time.time() - player.start_time)
+    
+    # ENEMY STUFF
     # moves the enemy to the left each frame
     bat.x -= bat.speed
+    
     # checks if enemy is at the left edge of the screen
     if bat.right <= 0:
+        # sets the enemy back to the right side of the screen
         bat.left = WIDTH
+        # resets the speed back to the normal speed
         bat.speed = bat.base_speed
-
+# _________________________________________________________________________#
+    # PLAYER STUFF    
     # increase gravity each frame
     player.gravity += 1
     #  add gravity to the player's y value
@@ -95,8 +103,8 @@ def update():
     if player.top <= 0:
         player.hit_top = True
         player.gravity += 20
-        bat.speed *= 2
-
+        bat.speed *= 1.5
+# _________________________________________________________________________#
     # subtract from the timer
     bat.animation_timer -= 1
     if bat.animation_timer <= 0:
@@ -110,7 +118,7 @@ def update():
             # switch it back
             bat.image = "bat"
 
-    # check for collision 
+    # check for collision
     if player.colliderect(bat):
         bat.left = WIDTH
         bat.speed = bat.base_speed
