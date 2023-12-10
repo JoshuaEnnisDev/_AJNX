@@ -1,6 +1,7 @@
 # gives you access to extra functions that do not come with Python
 import pgzrun
 import time
+from pgzhelper import Actor
 
 WIDTH = 800
 HEIGHT = 500
