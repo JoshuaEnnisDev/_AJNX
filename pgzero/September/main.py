@@ -124,6 +124,7 @@ def update():
         bat.speed = bat.base_speed
         # take away life
         player.health -= bat.damage
+        player.scale = 2
 
     # keeps the larger of 0 and player's health
     player.health = max(0, player.health)
