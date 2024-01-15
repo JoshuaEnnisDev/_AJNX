@@ -26,10 +26,10 @@ def move_player():
     # move to the right
     elif keyboard.d:
         player.x += player.speed
-    # move to the up
+    # move up
     elif keyboard.w:
         player.y -= player.speed
-    # move to the down
+    # move down
     elif keyboard.s:
         player.y += player.speed
 
@@ -39,6 +39,23 @@ def bound_player():
         player.left = 100
     if player.y < 100:
         player.y = 100
+    if player.right > WIDTH - 100:
+        player.right = WIDTH - 100
+    if player.bottom > HEIGHT - 105:
+        player.bottom = HEIGHT - 105
+
+# make an empty list
+enemies = []
+def create_enemy():
+    e = Actor("ghost")
+    # add to the enemy list
+    enemies.append(e)
+
+
+def move_enemies():
+    for e in enemies:
+        e.move_towards(player, 3)
+    
 
 
 # ************************** Built in functions ************************** #
@@ -53,13 +70,16 @@ def draw():
     ''' define the draw function (built in to pygame zero automatically) '''
     bg.draw()
     player.draw()
+    for enemy in enemies:
+        enemy.draw()
 
 
 # define the update function (runs a forever loop ---- while True) runs 60 times a second
 def update():
     move_player()
     bound_player()
-
+    create_enemy()
+    move_enemies()
 
 # last line of code
 go()
