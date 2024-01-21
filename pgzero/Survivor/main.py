@@ -8,6 +8,10 @@ WIDTH = 1500
 HEIGHT = 750
 TITLE = "Survivor Game"
 
+# global variables
+# this will be used to create an enemy once per second
+enemy_timer = 60
+
 # create the background actor and store in a variable
 bg = Actor("dungeon1")
 
@@ -47,9 +51,15 @@ def bound_player():
 # make an empty list
 enemies = []
 def create_enemy():
-    e = Actor("ghost")
-    # add to the enemy list
-    enemies.append(e)
+    global enemy_timer
+    enemy_timer -= 1 # takes 1 second to get to 0
+    print(enemy_timer)
+    if enemy_timer <= 0:
+        # reset our enemy timer
+        enemy_timer = 60
+        e = Actor("ghost")
+        # add to the enemy list
+        enemies.append(e)
 
 
 def move_enemies():
@@ -78,6 +88,8 @@ def draw():
 def update():
     move_player()
     bound_player()
+    # problem is we are making too many enemies (60 per second)
+    # clock
     create_enemy()
     move_enemies()
 
