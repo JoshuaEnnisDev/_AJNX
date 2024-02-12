@@ -3,5 +3,14 @@
 
 # the input() function allows us to do that!
 
-input("Enter a noun: ")
+noun1 = input("Enter a noun: ")
 
+
+
+
+
+paragraph = F"""
+
+
+
+"""

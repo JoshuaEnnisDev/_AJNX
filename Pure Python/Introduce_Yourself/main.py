@@ -9,7 +9,7 @@
 -12
 
 # Functions -- Performs an action -- Usually a verb end in ()
-print("Hola, me llamo es Josh")
+# print("Hola, me llamo es Josh")
 
 # variables give data and store data for later use.
 name = "Kemo"
@@ -23,9 +23,15 @@ print("I am " + str(age) + " years old")
 print(F"I am {age} years old and my name is {name}. I also like {fav_food}")
 
 
-
-
-
 # Multiline stings
 
-paragraph = "anything in here is string"
+paragraph = F"""
+
+I am {age} years old and my name is {name}. I also like {fav_food}. 
+If I make a new line, it wil; print pout that way.
+
+
+Any spaces or new lines will show up.
+"""
+print(paragraph)
+
